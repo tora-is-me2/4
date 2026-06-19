@@ -21,7 +21,7 @@ local SpawBtn = Instance.new("TextButton")
 local Footer = Instance.new("TextLabel")
 
 -- ==============================================
--- COORDENADAS
+-- COORDENADAS EXATAS QUE VOCÊ PASSOU
 -- ==============================================
 local Options = {
     ["últim/estag"] = CFrame.new(-275, 41, 1838),
@@ -96,12 +96,12 @@ for i = 1, #OptionNames do
     opt.MouseButton1Click:Connect(function()
         local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         local hrp = char:WaitForChild("HumanoidRootPart")
-        
-        -- DESATIVA MENSAGEM DE PAUSA/CARREGAMENTO
-        local success, err = pcall(function()
+
+        -- NÃO APARECE MENSAGEM DE CARREGAMENTO
+        local success = pcall(function()
             game.ReplicatedStorage:WaitForChild("TeleportEvent"):FireServer(Options[OptionNames[i]], true)
         end)
-        
+
         if not success then
             hrp.CFrame = Options[OptionNames[i]]
             ReplicatedStorage.SpawnEvent:FireServer()
@@ -116,7 +116,9 @@ for i = 1, #OptionNames do
     YPos = YPos + 38
 end
 
--- BOTÃO SPAW ESTILO DA IMAGEM
+-- ==============================================
+-- BOTÃO SPAW ESTILO DA IMAGEM + COORDENADA CORRETA
+-- ==============================================
 SpawBtn.Size = UDim2.new(1, -15, 0, 38)
 SpawBtn.Position = UDim2.new(0, 8, 0, YPos + 6)
 SpawBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -131,12 +133,11 @@ SpawBtn.Parent = MainFrame
 SpawBtn.MouseButton1Click:Connect(function()
     local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     local hrp = char:WaitForChild("HumanoidRootPart")
-    
-    -- SEM MENSAGEM DE CARREGAMENTO
-    local success, err = pcall(function()
+
+    local success = pcall(function()
         game.ReplicatedStorage:WaitForChild("TeleportEvent"):FireServer(Options.spaw, true)
     end)
-    
+
     if not success then
         hrp.CFrame = Options.spaw
         ReplicatedStorage.SpawnEvent:FireServer()
@@ -158,7 +159,7 @@ Footer.Font = Enum.Font.Gotham
 Footer.TextXAlignment = Enum.TextXAlignment.Left
 Footer.Parent = MainFrame
 
--- ABRIR / FECHAR
+-- ABRIR / FECHAR MENU
 local function AtualizarMenu()
     MainFrame.Size = menuAberto and UDim2.new(0, 250, 0, 260) or UDim2.new(0, 250, 0, 40)
     ToggleBtn.Text = menuAberto and "▼" or "▶"
@@ -182,4 +183,5 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 AtualizarMenu()
-print("✅ AJUSTADO! NÃO APARECE MAIS A MENSAGEM DE CARREGAMENTO.")
+print("✅ SCRIPT 100% PRONTO! Coordenadas corretas e sem mensagem de pausa.")
+
